@@ -97,7 +97,7 @@ echo ""
 echo "Preparing Connector..."
 
 #get the default flow file
-wget https://raw.githubusercontent.com/dealcracker/influx/master/flows.json 
+wget https://raw.githubusercontent.com/dealcracker/DefliInfluxDB/master/flows.json 
 
 # updated the coordinates and IP in defaultFlows.json
 original_line1="GS_LATITUDE"
@@ -114,7 +114,7 @@ sed -i "s|$original_line2|$new_line2|g" "flows.json"
 sed -i "s|$original_line3|$new_line3|g" "flows.json"
 
 #get the default flow cred
-wget https://raw.githubusercontent.com/dealcracker/influx/master/flows_cred.json 
+wget https://raw.githubusercontent.com/dealcracker/DefliInfluxDB/master/flows_cred.json 
 
 #update the token
 original_line4="GS_IDENTIFIER"
@@ -123,7 +123,7 @@ new_line4=gsid
 sed -i "s|$original_line4|$new_line4|g" "flows_cred.json"
 
 #get the settings file
-wget https://raw.githubusercontent.com/dealcracker/influx/master/settings.js 
+wget https://raw.githubusercontent.com/dealcracker/DefliInfluxDB/master/settings.js 
 
 echo ""
 echo "Installing Connector..."
