@@ -135,7 +135,7 @@ rm -fr /root/.node-red/flows_cred.json
 rm -fr /root/.node-red/settings.js 
 
 #move updated file to .node_red folder
-mv lows.json /root/.node-red/flows.json
+mv flows.json /root/.node-red/flows.json
 mv flows_cred.json /root/.node-red/flows_cred.json
 mv settings.js /root/.node-red/settings.js
 
