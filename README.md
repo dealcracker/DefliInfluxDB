@@ -6,7 +6,7 @@ Use this script to install the new MongoDB connector on your new or existing Def
 
 ### Usage
 ```
-sudo bash -c "$(wget -O - https://raw.githubusercontent.com/dealcracker/DefliMongoDB/master/installMongo.sh)"
+sudo bash -c "$(wget -O - https://raw.githubusercontent.com/dealcracker/DefliInfluxDB/master/installInflux.sh)"
 ```
 	
 ## Defli Ground Station Installation Script
@@ -16,5 +16,5 @@ After rebooting (at the end of the installation), please run 'sudo autogain1090'
 
 ### Usage
 ```
-sudo bash -c "$(wget -O - https://raw.githubusercontent.com/dealcracker/DefliMongoDB/master/installDefli.sh)"
+sudo bash -c "$(wget -O - https://raw.githubusercontent.com/dealcracker/DefliInfluxDB/master/installDefli.sh)"
 ```
