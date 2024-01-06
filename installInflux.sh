@@ -106,7 +106,7 @@ new_line1=$(grep -oP -- "--lat \K[^ ]+" /etc/default/readsb)
 original_line2="GS_LONGITUDE"
 new_line2=$(grep -oP -- "--lon \K[^ ]+" /etc/default/readsb)
 
-original_line2="GS_IP_ADDRESS"
+original_line3="GS_IP_ADDRESS"
 new_line3=$ip_address
 
 sed -i "s|$original_line1|$new_line1|g" "flows.json"
@@ -118,7 +118,7 @@ wget https://raw.githubusercontent.com/dealcracker/DefliInfluxDB/master/flows_cr
 
 #update the token
 original_line4="GS_IDENTIFIER"
-new_line4=gsid
+new_line4=$gsid
 
 sed -i "s|$original_line4|$new_line4|g" "flows_cred.json"
 
