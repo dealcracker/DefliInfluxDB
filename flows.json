@@ -1,0 +1,593 @@
+[
+    {
+        "id": "360615b94e09f63d",
+        "type": "tab",
+        "label": "Map ADS-B flights",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "d50d0c9f.31e858",
+        "type": "tls-config",
+        "name": "",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "servername": "",
+        "verifyservercert": false
+    },
+    {
+        "id": "6cefed8b69595b17",
+        "type": "influxdb",
+        "hostname": "us-east-1-1.aws.cloud2.influxdata.com",
+        "port": "8086",
+        "protocol": "http",
+        "database": "database",
+        "name": "Defli InfluxDB - set your API Key here",
+        "usetls": false,
+        "tls": "d50d0c9f.31e858",
+        "influxdbVersion": "2.0",
+        "url": "https://us-east-1-1.aws.cloud2.influxdata.com",
+        "rejectUnauthorized": true
+    },
+    {
+        "id": "163cc9402a2a8bdd",
+        "type": "debug",
+        "z": "360615b94e09f63d",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 630,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "830bd77ff93f2ac4",
+        "type": "tcp in",
+        "z": "360615b94e09f63d",
+        "name": "Get Dump1090 output",
+        "server": "client",
+        "host": "GS_IP_ADDRESS",
+        "port": "30003",
+        "datamode": "stream",
+        "datatype": "utf8",
+        "newline": "\\n",
+        "topic": "",
+        "trim": false,
+        "base64": false,
+        "tls": "",
+        "x": 140,
+        "y": 300,
+        "wires": [
+            [
+                "aa24910b4a6c05cd",
+                "218ad234c70aa5c0",
+                "9c4bcc9969071bda"
+            ]
+        ]
+    },
+    {
+        "id": "cb71c366e5052160",
+        "type": "change",
+        "z": "360615b94e09f63d",
+        "name": "Apply ADS-B labels",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.col1",
+                "pt": "msg",
+                "to": "payload.msg_type",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payload.col2",
+                "pt": "msg",
+                "to": "payload.trans_type",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payload.col3",
+                "pt": "msg",
+                "to": "payload.session_id",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payload.col4",
+                "pt": "msg",
+                "to": "payload.aircraft_id",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payload.col5",
+                "pt": "msg",
+                "to": "payload.hex_ident",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payload.col6",
+                "pt": "msg",
+                "to": "payload.flight_id",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payload.col7",
+                "pt": "msg",
+                "to": "payload.generate_date",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payload.col8",
+                "pt": "msg",
+                "to": "payload.generated_time",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payload.col9",
+                "pt": "msg",
+                "to": "payload.logged_date",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payload.col10",
+                "pt": "msg",
+                "to": "payload.logged_time",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payload.col11",
+                "pt": "msg",
+                "to": "payload.callsign",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payload.col12",
+                "pt": "msg",
+                "to": "payload.altitude",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payload.col13",
+                "pt": "msg",
+                "to": "payload.ground_speed",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payload.col14",
+                "pt": "msg",
+                "to": "payload.track",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payload.col15",
+                "pt": "msg",
+                "to": "payload.lat",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payload.col16",
+                "pt": "msg",
+                "to": "payload.lon",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payload.col17",
+                "pt": "msg",
+                "to": "payload.vert_rate",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payload.col18",
+                "pt": "msg",
+                "to": "payload.squawk",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payload.col19",
+                "pt": "msg",
+                "to": "payload.alert",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payload.col20",
+                "pt": "msg",
+                "to": "payload.emergency",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payload.col21",
+                "pt": "msg",
+                "to": "payload.spi",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payload.col22",
+                "pt": "msg",
+                "to": "payload.is_on_ground",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 670,
+        "y": 300,
+        "wires": [
+            [
+                "163cc9402a2a8bdd",
+                "4a7ab86561fb3213"
+            ]
+        ],
+        "info": "    message_type\n    transmission_type\n    session_id\n    aircraft_id\n    hex_ident\n    flight_id\n    generated_date\n    generated_time\n    logged_date\n    logged_time\n    callsign\n    altitude\n    ground_speed\n    track\n    lat\n    lon\n    vertical_rate\n    squawk\n    alert\n    emergency\n    spi\n    is_on_ground"
+    },
+    {
+        "id": "b7517935ea9826c7",
+        "type": "worldmap",
+        "z": "360615b94e09f63d",
+        "name": "",
+        "lat": "GS_LATITUDE",
+        "lon": "GS_LONGITUDE",
+        "zoom": "7",
+        "layer": "OSMG",
+        "cluster": "",
+        "maxage": "",
+        "usermenu": "show",
+        "layers": "show",
+        "panit": "false",
+        "panlock": "false",
+        "zoomlock": "false",
+        "hiderightclick": "false",
+        "coords": "none",
+        "showgrid": "false",
+        "path": "/worldmap",
+        "overlist": "DR,CO,RA,DN,HM",
+        "maplist": "OSMG,OSMC,EsriC,EsriS,EsriT,EsriO,EsriDG,NatGeo,UKOS,OpTop",
+        "mapname": "",
+        "mapurl": "",
+        "mapopt": "",
+        "mapwms": false,
+        "x": 1380,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "4a7ab86561fb3213",
+        "type": "change",
+        "z": "360615b94e09f63d",
+        "name": "Apply map labels",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.name",
+                "pt": "msg",
+                "to": "payload.hex_ident",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.icon",
+                "pt": "msg",
+                "to": "plane",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "blue",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 890,
+        "y": 300,
+        "wires": [
+            [
+                "b7517935ea9826c7",
+                "1c2be5c13728c545"
+            ]
+        ]
+    },
+    {
+        "id": "1c2be5c13728c545",
+        "type": "debug",
+        "z": "360615b94e09f63d",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 870,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "aa24910b4a6c05cd",
+        "type": "debug",
+        "z": "360615b94e09f63d",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 110,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "b89d51be025c84fa",
+        "type": "inject",
+        "z": "360615b94e09f63d",
+        "name": "Draw 100kM",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"name\":\"100kM\",\"lat\":GS_LATITUDE,\"lon\":GS_LONGITUDE,\"radius\":100000,\"fillOpacity\":0.0}",
+        "payloadType": "json",
+        "x": 1140,
+        "y": 80,
+        "wires": [
+            [
+                "b7517935ea9826c7"
+            ]
+        ]
+    },
+    {
+        "id": "28e07b4987255a42",
+        "type": "inject",
+        "z": "360615b94e09f63d",
+        "name": "Draw 200kM",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"name\":\"200kM\",\"lat\":GS_LATITUDE,\"lon\":GS_LONGITUDE,\"radius\":200000,\"fillOpacity\":0.0}",
+        "payloadType": "json",
+        "x": 1140,
+        "y": 120,
+        "wires": [
+            [
+                "b7517935ea9826c7"
+            ]
+        ]
+    },
+    {
+        "id": "804dd118f8da8374",
+        "type": "inject",
+        "z": "360615b94e09f63d",
+        "name": "Draw 300kM",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"name\":\"300kM\",\"lat\":GS_LATITUDE,\"lon\":GS_LONGITUDE,\"radius\":300000,\"fillOpacity\":0.0}",
+        "payloadType": "json",
+        "x": 1140,
+        "y": 160,
+        "wires": [
+            [
+                "b7517935ea9826c7"
+            ]
+        ]
+    },
+    {
+        "id": "571958df6576ffdd",
+        "type": "inject",
+        "z": "360615b94e09f63d",
+        "name": "Draw 400kM",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"name\":\"400kM\",\"lat\":GS_LATITUDE,\"lon\":GS_LONGITUDE,\"radius\":400000,\"fillOpacity\":0.0}",
+        "payloadType": "json",
+        "x": 1140,
+        "y": 200,
+        "wires": [
+            [
+                "b7517935ea9826c7"
+            ]
+        ]
+    },
+    {
+        "id": "7376b2c724963b51",
+        "type": "inject",
+        "z": "360615b94e09f63d",
+        "name": "Draw 500kM",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"name\":\"500kM\",\"lat\":GS_LATITUDE,\"lon\":GS_LONGITUDE,\"radius\":500000,\"fillOpacity\":0.0}",
+        "payloadType": "json",
+        "x": 1140,
+        "y": 240,
+        "wires": [
+            [
+                "b7517935ea9826c7"
+            ]
+        ]
+    },
+    {
+        "id": "9c4bcc9969071bda",
+        "type": "function",
+        "z": "360615b94e09f63d",
+        "name": "SDR JSON Processing for maps",
+        "func": "\n// Define the function to parse the incoming data and create a JavaScript object\nfunction parseData(input) {\n    // Split the incoming string by commas to get individual values\n    const dataArray = input.split(',');\n\n    // Define your object keys based on the data structure\n    const keys = [\n        'col1', 'col2', 'col3', 'col4', 'col5', 'col6', 'col7', 'col8',\n        'col9', 'col10', 'col11', 'col12', 'col13', 'col14', 'col15',\n        'col16', 'col17', 'col18', 'col19', 'col20', 'col21', 'col22'\n        // Add more keys if needed up to 22\n    ];\n\n    const parsedObject = {};\n\n    // Loop through the dataArray and assign values to keys in the object\n    for (let i = 0; i < dataArray.length && i < keys.length; i++) {\n        const value = dataArray[i].trim(); // Trim the value\n\n        // Check if the value is not an empty string, undefined, null, or zero length\n        if (value !== '' && value !== undefined && value !== null && value.length > 0) {\n            // For col5, ensure it's always treated as a string\n            if (i === 4) {\n                parsedObject[keys[i]] = value;\n            } else {\n                parsedObject[keys[i]] = convertToAppropriateType(value);\n            }\n        }\n    }\n\n    return parsedObject;\n}\n\n// Function to convert string values to appropriate types\nfunction convertToAppropriateType(value) {\n    // Check if the value is a number and convert it if necessary\n    if (!isNaN(value)) {\n        return parseFloat(value); // Convert numeric strings to numbers\n    }\n    // Check for date or time format and keep them as strings\n    if (value.match(/^\\d{4}\\/\\d{2}\\/\\d{2}$/) || value.match(/^\\d{2}:\\d{2}:\\d{2}\\.\\d+$/)) {\n        return value;\n    }\n    // If not a number or date/time, return the value as is\n    return value;\n}\n\n\nif (!msg.payload || (typeof msg.payload !== 'string') || msg.payload.trim().length === 0) {\n    // If the payload is empty or not a string or a trimmed empty string, ignore and move to the next message\n    return null;\n} else {\n   \n\n// Assuming msg.payload contains the incoming data stream\nconst inputData = msg.payload;\n\n// Call the function to parse the incoming data and convert it into a JavaScript object\nconst parsedData = parseData(inputData);\n\n\n// Filter out keys with empty values or zero length from the parsed data\nObject.keys(parsedData).forEach(key => (parsedData[key] === '' || parsedData[key] === undefined || parsedData[key] === null || (typeof parsedData[key] === 'string' && parsedData[key].trim().length === 0)) && delete parsedData[key]);\n\n// Replace the current payload with the parsed data\nmsg.payload = parsedData;\nreturn msg;\n\n\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 300,
+        "wires": [
+            [
+                "cb71c366e5052160",
+                "101812ad375d59c9"
+            ]
+        ]
+    },
+    {
+        "id": "101812ad375d59c9",
+        "type": "debug",
+        "z": "360615b94e09f63d",
+        "name": "debug 2",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 360,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "6a563b3df1f7fbc2",
+        "type": "influxdb batch",
+        "z": "360615b94e09f63d",
+        "influxdb": "6cefed8b69595b17",
+        "precision": "",
+        "retentionPolicy": "",
+        "name": "Influx Batch",
+        "database": "database",
+        "precisionV18FluxV20": "ns",
+        "retentionPolicyV18Flux": "",
+        "org": "DeFli Data",
+        "bucket": "dealcracker",
+        "x": 690,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "218ad234c70aa5c0",
+        "type": "function",
+        "z": "360615b94e09f63d",
+        "name": "SDR Influx Batch Processing",
+        "func": "// Function node to process incoming messages\nfunction processMessage(msg) {\n    // Initialize an array in context to store messages\n    context.set('messageArray', context.get('messageArray') || []);\n\n    // Push the incoming message to the array in context\n    let messageArray = context.get('messageArray');\n    messageArray.push(msg.payload);\n\n    // Store the updated array back in context\n    context.set('messageArray', messageArray);\n\n    let bufferSize = 50;\n    // Check if we have accumulated at least 20 messages\n    if (messageArray.length >= bufferSize) {\n        // Create an array to store data points\n        let dataPoints = [];\n\n        // Extract the last 20 messages from the array\n        let messagesToProcess = messageArray.slice(0, bufferSize);\n\n        // Loop through the last 20 stored messages to format the data\n        messagesToProcess.forEach((message) => {\n            // Split the message by commas\n            let data = message.split(',');\n\n            // Format the data into an object or array based on your InfluxDB schema\n            let dataPoint = {\n                measurement: 'adsbicao1',\n                fields: {\n                    message_type: data[0],\n                    transmission_type: parseFloat(data[1] || 0),\n                    session_id: parseFloat(data[2] || 0),\n                    aircraft_id: parseFloat(data[3] || 0),\n                    hex_ident: data[4],\n                    flight_id: parseFloat(data[5] || 0),\n                    generated_date: data[6],\n                    generated_time: data[7],\n                    logged_date: data[8],\n                    logged_time: data[9],\n                    callsign: data[10],\n                    altitude: parseFloat(data[11] || 0),\n                    ground_speed: parseFloat(data[12] || 0),\n                    track: parseFloat(data[13] || 0),\n                    lat: parseFloat(data[14] || 0),\n                    lon: parseFloat(data[15] || 0),\n                    vertical_rate: parseFloat(data[16] || 0),\n                    //squawk: parseFloat(data[17] || 0),                    \n                    alert: parseFloat(data[18] || 0),\n                    emergancy: parseFloat(data[19] || 0),\n                    spi: parseFloat(data[20] || 0),\n                    is_on_ground: (data[21].replace(/(\\r)/gm, \"\"))\n                },\n                tag: {\n                    squawk: data[17]\n                }\n                // You can add tags or timestamp if needed\n                // tags: { tag1: 'value1', tag2: 'value2' },\n                //timestamp: Date.now() // Optional: specify a custom timestamp\n            };\n\n            // Push the data point to the array\n            dataPoints.push(dataPoint);\n        });\n\n        // Send the dataPoints array to InfluxDB batch node\n        // Replace the 'influxdb-batch' node with your actual InfluxDB batch node\n        node.send({ payload: dataPoints });\n\n        // Remove the processed messages from the array in context\n        context.set('messageArray', messageArray.slice(bufferSize));\n    }\n}\n\n// Assuming msg.payload contains the incoming data stream\n//const inputData = msg.payload;\n\n// Attach the function to the incoming message\n\nif (!msg.payload || (typeof msg.payload !== 'string') || msg.payload.trim().length === 0) {\n    // If the payload is empty or not a string or a trimmed empty string, ignore and move to the next message\n    return null;\n} else {\n    processMessage(msg);\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 400,
+        "wires": [
+            [
+                "36ab317c037f68e6",
+                "6a563b3df1f7fbc2"
+            ]
+        ]
+    },
+    {
+        "id": "36ab317c037f68e6",
+        "type": "debug",
+        "z": "360615b94e09f63d",
+        "name": "debug 4",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 460,
+        "wires": []
+    }
+]
