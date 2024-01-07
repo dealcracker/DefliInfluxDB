@@ -21,8 +21,15 @@ read -p "Enter Your Ground Station ID:  " gsid
 read -p "Enter Your Ground Station Token:  " token
 
 #check GS ID length
-if [ "${#gsid}" -lt 12 ]; then
+if [ "${#gsid}" -lt 5 ]; then
   echo "Error: Ground Station ID is too short."
+  echo "Aborting installation"
+  exit 1
+fi
+
+#check Token length
+if [ "${#token}" -lt 5 ]; then
+  echo "Error: Ground Token is too short."
   echo "Aborting installation"
   exit 1
 fi
@@ -35,7 +42,7 @@ cd $user_dir
 user_name=sudo who am i | awk '{print $1}'
 
 echo "============ Influx Connector ==============="
-echo "Installing the Influx connector for Defli." 
+echo "Installing the Influx connector for Defli" 
 
 #Determine IP address to use in flow
 #test if localhost is reachable
