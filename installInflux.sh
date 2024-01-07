@@ -16,20 +16,20 @@ if [ ! -e "/etc/default/readsb" ]; then
   exit 1
 fi
 
-#Prompt user for the Ground Station ID
-read -p "Enter Your Ground Station ID:  " gsid
-read -p "Enter Your Ground Station Token:  " token
+#Prompt user for the Ground Station information
+read -p "Enter Your Ground Station Bucket ID: " bucket
+read -p "Enter Your Ground Station API Key  : " token
 
 #check GS ID length
-if [ "${#gsid}" -lt 5 ]; then
-  echo "Error: Ground Station ID is too short."
+if [ "${#bucket}" -lt 5 ]; then
+  echo "Error: Ground Station Bucket ID is too short."
   echo "Aborting installation"
   exit 1
 fi
 
 #check Token length
 if [ "${#token}" -lt 5 ]; then
-  echo "Error: Ground Token is too short."
+  echo "Error: Ground Station API Key is too short."
   echo "Aborting installation"
   exit 1
 fi
@@ -132,7 +132,7 @@ original_line3="GS_IP_ADDRESS"
 new_line3=$ip_address
 
 original_line4="GS_BUCKET"
-new_line4=$gsid
+new_line4=$bucket
 
 sed -i "s|$original_line1|$new_line1|g" "flows.json"
 sed -i "s|$original_line2|$new_line2|g" "flows.json"
