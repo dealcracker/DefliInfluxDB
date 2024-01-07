@@ -18,6 +18,7 @@ fi
 
 #Prompt user for the Ground Station ID
 read -p "Enter Your Ground Station ID:  " gsid
+read -p "Enter Your Ground Station Token:  " token
 
 #check GS ID length
 if [ "${#gsid}" -lt 12 ]; then
@@ -109,18 +110,22 @@ new_line2=$(grep -oP -- "--lon \K[^ ]+" /etc/default/readsb)
 original_line3="GS_IP_ADDRESS"
 new_line3=$ip_address
 
+original_line4="GS_BUCKET"
+new_line4=$gsid
+
 sed -i "s|$original_line1|$new_line1|g" "flows.json"
 sed -i "s|$original_line2|$new_line2|g" "flows.json"
 sed -i "s|$original_line3|$new_line3|g" "flows.json"
+sed -i "s|$original_line4|$new_line4|g" "flows.json"
 
 #get the default flow cred
 wget https://raw.githubusercontent.com/dealcracker/DefliInfluxDB/master/flows_cred.json 
 
 #update the token
-original_line4="GS_IDENTIFIER"
-new_line4=$gsid
+original_line5="GS_TOKEN"
+new_line5=$token
 
-sed -i "s|$original_line4|$new_line4|g" "flows_cred.json"
+sed -i "s|$original_line5|$new_line5|g" "flows_cred.json"
 
 #get the settings file
 wget https://raw.githubusercontent.com/dealcracker/DefliInfluxDB/master/settings.js 
