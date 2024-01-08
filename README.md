@@ -2,7 +2,7 @@
 These shell scripts help to install the Defli ground station. One script installs the base Defli ground station on a new device. Another script installs the new Defli Influx Connector on new or existing ground stations. These scripts are compatible with the 64-bit version of Ubuntu 20.04, 22.04, and 23.04 as well as Rasberry Pi OS.
 
 ## Influx Connector Installation Script
-Use this script to install the new MongoDB connector on your new or existing Defli Ground station.
+Use this script to install the new Infux connector on your new or existing Defli Ground station.
 
 ### Usage
 ```
