@@ -17,6 +17,7 @@ if [ ! -e "/etc/default/readsb" ]; then
 fi
 
 #Prompt user for the Ground Station information
+each "Go to defli-wallet.com to find your unique Ground Station information:
 read -p "Enter Your Ground Station Bucket ID: " bucket
 read -p "Enter Your Ground Station API Key  : " token
 
@@ -106,15 +107,6 @@ chmod +x update-nodejs-and-nodered
 ./update-nodejs-and-nodered --confirm-root --confirm-install --skip-pi --no-init 
 rm update-nodejs-and-nodered 
 
-#install the Worldmap and InfluxDB nodes
-echo ""
-echo "Installing Required Nodes..."
-npm install node-red-contrib-web-worldmap
-npm install node-red-contrib-influxdb
-
-#install node red admin
-#npm install -g node-red-admin
-
 echo ""
 echo "Preparing Connector..."
 
@@ -168,6 +160,20 @@ mv settings.js /root/.node-red/settings.js
 #Enable and start Node-Red service
 systemctl enable nodered.service
 systemctl start nodered.service
+
+#install the Worldmap and InfluxDB nodes
+echo ""
+echo "Installing Required Nodes..."
+npm update
+npm install -g node-red-admin
+npm install node-red-contrib-web-worldmap
+npm install node-red-contrib-influxdb
+node-red-admin target http://127.0.0.1:1880
+node-red-admin install node-red-contrib-web-worldmap
+node-red-admin install node-red-contrib-influxdb
+
+#Restart Node-Red service
+systemctl restart nodered.service
 
 # #get the service status
 service_name="nodered"
