@@ -17,7 +17,7 @@ if [ ! -e "/etc/default/readsb" ]; then
 fi
 
 #Prompt user for the Ground Station information
-echo "Go to defli-wallet.com to find your unique Ground Station information:
+echo "Go to defli-wallet.com to find your unique Ground Station information:"
 read -p "Enter Your Ground Station Bucket ID: " bucket
 read -p "Enter Your Ground Station API Key  : " token
 
