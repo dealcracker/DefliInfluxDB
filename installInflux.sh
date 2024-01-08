@@ -17,7 +17,7 @@ if [ ! -e "/etc/default/readsb" ]; then
 fi
 
 #Prompt user for the Ground Station information
-each "Go to defli-wallet.com to find your unique Ground Station information:
+echo "Go to defli-wallet.com to find your unique Ground Station information:
 read -p "Enter Your Ground Station Bucket ID: " bucket
 read -p "Enter Your Ground Station API Key  : " token
 
@@ -168,7 +168,7 @@ npm update
 npm install -g node-red-admin
 npm install node-red-contrib-web-worldmap
 npm install node-red-contrib-influxdb
-node-red-admin target http://127.0.0.1:1880
+node-red-admin target "http://127.0.0.1:1880"
 node-red-admin install node-red-contrib-web-worldmap
 node-red-admin install node-red-contrib-influxdb
 
