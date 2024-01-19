@@ -84,8 +84,12 @@ readsb_original_line1="\"--net-only --net-connector localhost,30006,json_out\""
 readsb_new_line1="\"--net-only --net-connector localhost,30006,json_out --net-sbs-port 30003 --net-sbs-reduce --net-beast-reduce-interval 2\""
 readsb_original_line2="\"--net --net-heartbeat 60 --net-ro-size 1250 --net-ro-interval 0.05 --net-ri-port 30001 --net-ro-port 30002 --net-sbs-port 30003 --net-bi-port 30004,30104 --net-bo-port 30005\""
 readsb_new_line2="\"--net --net-heartbeat 60 --net-ro-size 1250 --net-ro-interval 0.05 --net-ri-port 30001 --net-ro-port 30002 --net-sbs-port 30003 --net-bi-port 30004,30104 --net-bo-port 30005 --net-sbs-reduce --net-beast-reduce-interval 2\""
+readsb_original_line3="\"--net --net-heartbeat 60 --net-ro-size 1250 --net-ro-interval 0.05 --net-ri-port 30001 --net-ro-port 30002 --net-sbs-port 30003 --net-bi-port 30004,30104 --net-bo-port 30005 --net-connector localhost,30006,json_out\""
+readsb_new_line3="\"--net --net-heartbeat 60 --net-ro-size 1250 --net-ro-interval 0.05 --net-ri-port 30001 --net-ro-port 30002 --net-sbs-port 30003 --net-bi-port 30004,30104 --net-bo-port 30005 --net-connector localhost,30006,json_out --net-sbs-reduce --net-beast-reduce-interval 2\""
+
 sed -i "s|$readsb_original_line1|$readsb_new_line1|g" "/etc/default/readsb"
 sed -i "s|$readsb_original_line2|$readsb_new_line2|g" "/etc/default/readsb"
+sed -i "s|$readsb_original_line3|$readsb_new_line3|g" "/etc/default/readsb"
 sudo systemctl restart readsb
 
 #remove MongoDB Connector
