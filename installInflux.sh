@@ -21,6 +21,9 @@ echo "Go to defli-wallet.com to find your unique Ground Station information:"
 read -p "Enter Your Ground Station Bucket ID: " bucket
 read -p "Enter Your Ground Station API Key  : " token
 
+#Make bucket lowercase
+bucket="$(tr [A-Z] [a-z] <<< "$bucket")"
+
 #check GS ID length
 if [ "${#bucket}" -lt 5 ]; then
   echo "Error: Ground Station Bucket ID is too short."
