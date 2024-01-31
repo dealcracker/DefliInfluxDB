@@ -25,7 +25,7 @@ read -p "Enter Your Ground Station API Key  : " token
 bucket="$(tr [A-Z] [a-z] <<< "$bucket")"
 
 #check GS ID length
-if [ "${#bucket}" -lt 5 ]; then
+if [ "${#bucket}" -lt 3 ]; then
   echo "Error: Ground Station Bucket ID is too short."
   echo "Aborting installation"
   exit 1
