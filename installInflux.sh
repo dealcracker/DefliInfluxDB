@@ -16,6 +16,40 @@ if [ ! -e "/etc/default/readsb" ]; then
   exit 1
 fi
 
+#change to user's home dir
+user_dir=$(getent passwd ${SUDO_USER:-$USER} | cut -d: -f6)
+cd $user_dir
+
+#get the user name
+user_name=sudo who am i | awk '{print $1}'
+current_dir=$(pwd)
+
+#Check for node-red
+if [ -e "/root/.node-red/settings.js" ]; then
+  read -p  "Node-Red is already installed. This script will delete any existing installation and all flows. Do you want to continue? (y/n) " response
+  if [ $response != "y" ]; then
+    echo "Aborting installation"
+    exit 1
+  fi
+else 
+  if [ -e "$current_dir/.node-red/settings.js" ]; then
+    read -p  "Node-Red is already installed. This script will delete any existing installation and all flows. Do you want to continue? (y/n) " response
+    if [ $response != "y" ]; then
+      echo "Aborting installation"
+      exit 1
+    fi
+  fi
+fi
+#stop and remove any running node-res service
+systemctl stop nodered > /dev/null 2>&1
+systemctl disable nodered > /dev/null 2>&1
+rm -f /lib/systemd/system/nodered.service > /dev/null 2>&1
+
+#remove any existing node-red installation directories
+rm -fr /root/.node-red > /dev/null 2>&1
+rm -fr $current_dir/.node-red > /dev/null 2>&1
+
+
 #Prompt user for the Ground Station information
 echo "Go to defli-wallet.com to find your unique Ground Station information:"
 read -p "Enter Your Ground Station Bucket ID: " bucket
@@ -37,13 +71,6 @@ if [ "${#token}" -lt 5 ]; then
   echo "Aborting installation"
   exit 1
 fi
-
-#change to user's home dir
-user_dir=$(getent passwd ${SUDO_USER:-$USER} | cut -d: -f6)
-cd $user_dir
-
-#get the user name
-user_name=sudo who am i | awk '{print $1}'
 
 echo "============ Influx Connector ==============="
 echo "Installing the Influx connector for Defli" 
@@ -153,7 +180,7 @@ wget https://raw.githubusercontent.com/dealcracker/DefliInfluxDB/master/settings
 echo ""
 echo "Installing Connector..."
 
-#delete the any existing file
+#delete any existing file
 rm -fr /root/.node-red/.config.runtime.json
 rm -fr /root/.node-red/flows.json
 rm -fr /root/.node-red/flows_cred.json
@@ -167,6 +194,9 @@ mv settings.js /root/.node-red/settings.js
 #Enable and start Node-Red service
 systemctl enable nodered.service
 systemctl start nodered.service
+
+echo "Waiting Node-Red for service to start..."
+sleep 3
 
 #install the Worldmap and InfluxDB nodes
 echo ""
@@ -182,18 +212,33 @@ node-red-admin install node-red-contrib-influxdb
 #Restart Node-Red service
 systemctl restart nodered.service
 
+echo "Waiting Node-Red for service to restart..."
+sleep 3
+
+flowsSize=$(wc -c <"/root/.node-red/flows.json")
+flowsCredSize=$(wc -c <"/root/.node-red/flows_cred.json")
+
+normalSize=0
+if [ $flowsSize -ge 21000 ]; then
+  if [ $flowsCredSize -ge 350 ]; then
+      $normalSize=1
+  fi
+fi
+
 # #get the service status
 service_name="nodered"
 status=$(systemctl is-active "$service_name")
 
-# # Check the status
+# Check the status
 echo ""
 case "$status" in
   "active")
     echo "************************************"
-    echo "Installation Completed Successfully!" 
-    echo "$service_name is running properly."
+    echo "Rod-Red Installation Completed" 
+    echo "$service_name is running."
     echo
+    echo "Flows file length: " $flowsSize
+    echo "Flows_cred file length: " $flowsCredSize
     ;;
   "inactive")
     echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
