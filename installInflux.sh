@@ -138,7 +138,7 @@ echo ""
 echo "Preparing to install Node.js and Node-RED..."
 wget https://raw.githubusercontent.com/node-red/linux-installers/master/deb/update-nodejs-and-nodered 
 chmod +x update-nodejs-and-nodered
-./update-nodejs-and-nodered --confirm-root --confirm-install --skip-pi --no-init 
+./update-nodejs-and-nodered --confirm-root --confirm-install --skip-pi --no-init --node18 
 rm update-nodejs-and-nodered 
 
 echo ""
